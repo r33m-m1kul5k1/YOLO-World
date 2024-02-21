@@ -23,8 +23,10 @@ LABEL_ANNOTATOR = sv.LabelAnnotator()
 
 def parse_args():
     parser = argparse.ArgumentParser(description='YOLO-World Demo')
-    parser.add_argument('config', help='test config file path')
-    parser.add_argument('checkpoint', help='checkpoint file')
+    parser.add_argument('--config', help='test config file path',
+                        default='./configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py')
+    parser.add_argument('--checkpoint', help='checkpoint file',
+                        default='./checkpoints/yolo_world_x_clip_base_dual_vlpan_2e-3adamw_32xb16_100e_o365_goldg_cc3mlite_train_pretrained-8cf6b025.pth')
     parser.add_argument(
         '--work-dir',
         help='the directory to save the file containing evaluation metrics')

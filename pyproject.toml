@@ -42,7 +42,7 @@ dependencies = [
     "mmengine>=0.7.1",
     "mmcv",
     'mmyolo @ git+https://github.com/onuralpszr/mmyolo.git',
-
+    'gradio',
 ]
 
 [tool.setuptools]
