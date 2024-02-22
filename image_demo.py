@@ -34,7 +34,7 @@ def parse_args():
                         type=int,
                         help='keep topk predictions.')
     parser.add_argument('--threshold',
-                        default=0.0,
+                        default=0.2,
                         type=float,
                         help='confidence score threshold for predictions.')
     parser.add_argument('--device',
@@ -47,7 +47,7 @@ def parse_args():
                         action='store_true',
                         help='use mixed precision for inference.')
     parser.add_argument('--output-dir',
-                        default='demo_outputs',
+                        default='output',
                         help='the directory to save outputs')
     parser.add_argument(
         '--cfg-options',
