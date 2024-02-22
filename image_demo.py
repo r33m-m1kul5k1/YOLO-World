@@ -16,6 +16,7 @@ from mmyolo.registry import RUNNERS
 BOUNDING_BOX_ANNOTATOR = sv.BoundingBoxAnnotator()
 LABEL_ANNOTATOR = sv.LabelAnnotator()
 
+
 def parse_args():
     parser = argparse.ArgumentParser(description='YOLO-World Demo')
     parser.add_argument('--config', help='test config file path',
@@ -54,11 +55,11 @@ def parse_args():
         nargs='+',
         action=DictAction,
         help='override some settings in the used config, the key-value pair '
-        'in xxx=yyy format will be merged into config file. If the value to '
-        'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
-        'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
-        'Note that the quotation marks are necessary and that no white space '
-        'is allowed.')
+             'in xxx=yyy format will be merged into config file. If the value to '
+             'be overwritten is a list, it should be like key="[a,b]" or key=a,b '
+             'It also allows nested list/tuple values, e.g. key="[(a,b),(c,d)]" '
+             'Note that the quotation marks are necessary and that no white space '
+             'is allowed.')
     args = parser.parse_args()
     return args
 
@@ -71,7 +72,6 @@ def inference_detector(runner,
                        output_dir,
                        use_amp=False,
                        show=False):
-
     data_info = dict(img_id=0, img_path=image_path, texts=texts)
     data_info = runner.pipeline(data_info)
     data_batch = dict(inputs=data_info['inputs'].unsqueeze(0),
@@ -110,23 +110,24 @@ def inference_detector(runner,
             cv2.destroyAllWindows()
 
 
+
+
+
 if __name__ == '__main__':
     args = parse_args()
-
+    config_file = './configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py'
     # load config
-    cfg = Config.fromfile(args.config)
-    if args.cfg_options is not None:
-        cfg.merge_from_dict(args.cfg_options)
+    config_object = Config.fromfile(config_file)
 
-    cfg.work_dir = osp.join('./work_dirs',
-                            osp.splitext(osp.basename(args.config))[0])
+    config_object.work_dir = osp.join('./work_dirs',
+                                      osp.splitext(osp.basename(config_file))[0])
 
-    cfg.load_from = args.checkpoint
+    config_object.load_from = args.checkpoint
 
-    if 'runner_type' not in cfg:
-        runner = Runner.from_cfg(cfg)
+    if 'runner_type' not in config_object:
+        runner = Runner.from_cfg(config_object)
     else:
-        runner = RUNNERS.build(cfg)
+        runner = RUNNERS.build(config_object)
 
     # load text
     if args.text.endswith('.txt'):
@@ -142,7 +143,7 @@ if __name__ == '__main__':
 
     runner.call_hook('before_run')
     runner.load_or_resume()
-    pipeline = cfg.test_dataloader.dataset.pipeline
+    pipeline = config_object.test_dataloader.dataset.pipeline
     runner.pipeline = Compose(pipeline)
     runner.model.eval()
 
@@ -156,7 +157,6 @@ if __name__ == '__main__':
 
     progress_bar = ProgressBar(len(images))
     for image_path in images:
-
         inference_detector(runner,
                            image_path,
                            texts,
