@@ -46,11 +46,11 @@ dependencies = [
 ]
 
 [tool.setuptools]
-package-dir = {"yolo_world" = "yolo_world"}
+package-dir = {"yolo_world" = "."}
 include-package-data = false
 license-files = ["LICENSE"]
 zip-safe = true
 
 [tool.setuptools.packages.find]
-include = ["yolo_world*"]
-exclude = ["docs*", "tests*","third_party*","assets*"]
+include = ["*"]
+exclude = ["docs*", "tests*","assets*"]

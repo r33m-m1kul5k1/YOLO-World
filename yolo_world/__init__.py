@@ -13,8 +13,9 @@ from mmengine.runner.amp import autocast
 from mmyolo.registry import RUNNERS
 
 
-def load_runner(checkpoint_file: str, config_file: str) -> Runner:
+def load_runner(checkpoint_file: str) -> Runner:
     """Loads a mmengine runner object using the given checkpoint file"""
+    config_file = "configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py"
     config_object = Config.fromfile(config_file)
     config_object.work_dir = osp.join('../work_dirs', osp.splitext(osp.basename(config_file))[0])
 
@@ -77,7 +78,7 @@ def inference_detector(runner: Runner,
 
 if __name__ == '__main__':
     runner = load_runner(
-        '../../../checkpoints/yolo_world_x_clip_base_dual_vlpan_2e-3adamw_32xb16_100e_o365_goldg_cc3mlite_train_pretrained-8cf6b025.pth')
+        '../../../checkpoints/yolo_world_x.pth')
 
     inference_detector(runner=runner, image=cv2.imread('../input/(-200, -120).png'),
                        texts=[['car'], ['building'], ['tree'], [' ']],
