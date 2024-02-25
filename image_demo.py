@@ -115,7 +115,7 @@ def inference_detector(runner,
 
 if __name__ == '__main__':
     args = parse_args()
-    config_file = './configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py'
+    config_file = 'yolo_world/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py'
     # load config
     config_object = Config.fromfile(config_file)
 

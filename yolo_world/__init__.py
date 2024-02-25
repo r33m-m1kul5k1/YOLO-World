@@ -13,11 +13,9 @@ from mmengine.runner.amp import autocast
 from mmyolo.registry import RUNNERS
 
 
-
-
 def load_runner(checkpoint_file: str) -> Runner:
     """Loads a mmengine runner object using the given checkpoint file"""
-    config_file = '../configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py'
+    config_file = 'yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py'
     config_object = Config.fromfile(config_file)
     config_object.work_dir = osp.join('../work_dirs', osp.splitext(osp.basename(config_file))[0])
 
