@@ -1,7 +1,6 @@
 _base_ = ('../../third_party/mmyolo/configs/yolov8/'
           'yolov8_x_syncbn_fast_8xb16-500e_coco.py')
-custom_imports = dict(imports=['yolo_world'],
-                      allow_failed_imports=False)
+custom_imports = dict(imports=['yolo_world'], allow_failed_imports=False)
 
 # hyper-parameters
 num_classes = 1203

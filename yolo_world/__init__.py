@@ -1,6 +1,5 @@
 import os.path as osp
 from typing import List
-
 import matplotlib.pyplot as plt
 import cv2
 import numpy as np
@@ -12,10 +11,15 @@ from mmengine.runner import Runner
 from mmengine.runner.amp import autocast
 from mmyolo.registry import RUNNERS
 
+# Imports Yolo World objects
+from models import *
+from engine import *
+from datasets import *
+
 
 def load_runner(checkpoint_file: str) -> Runner:
     """Loads a mmengine runner object using the given checkpoint file"""
-    config_file = "configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py"
+    config_file = osp.join(osp.dirname(osp.dirname(__file__)), "configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py")
     config_object = Config.fromfile(config_file)
     config_object.work_dir = osp.join('../work_dirs', osp.splitext(osp.basename(config_file))[0])
 
@@ -78,8 +82,8 @@ def inference_detector(runner: Runner,
 
 if __name__ == '__main__':
     runner = load_runner(
-        '../../../checkpoints/yolo_world_x.pth')
+        '../../Universal_Labeler/checkpoints/yolo_world_x.pth')
 
     inference_detector(runner=runner, image=cv2.imread('../input/(-200, -120).png'),
                        texts=[['car'], ['building'], ['tree'], [' ']],
-                       topk=100, score_thr=0.1)
+                       topk=100, score_thr=0.1, show_results=True)
