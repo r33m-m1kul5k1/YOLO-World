@@ -12,9 +12,9 @@ from mmengine.runner.amp import autocast
 from mmyolo.registry import RUNNERS
 
 # Imports Yolo World objects
-from models import *
-from engine import *
-from datasets import *
+from .models import *
+from .engine import *
+from .datasets import *
 
 
 def load_runner(checkpoint_file: str) -> Runner:
